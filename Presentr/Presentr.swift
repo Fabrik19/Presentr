@@ -123,8 +123,9 @@ public class Presentr: NSObject {
         }
     }
 
-    fileprivate var contextFrameForPresentation: CGRect?
+    fileprivate var presenterController:PresentrController?
 
+    fileprivate var contextFrameForPresentation: CGRect?
     // MARK: Init
 
     public init(presentationType: PresentationType) {
@@ -162,7 +163,8 @@ public class Presentr: NSObject {
 extension Presentr: UIViewControllerTransitioningDelegate {
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return presentationController(presented, presenting: presenting)
+        self.presenterController =  presentationController(presented, presenting: presenting)
+        return self.presenterController
     }
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -216,4 +218,16 @@ public extension UIViewController {
                                        completion: completion)
     }
 
+}
+
+// MARK: - Extension function to update the presentation type for orientation change
+extension Presentr {
+    public func updatePresentationTypeforOrientationChange(type:PresentationType) {
+        self.presentationType = type
+        presenterController?.presentationType = type
+    }
+
+    public func didDismiss() {
+        presenterController = nil
+    }
 }
