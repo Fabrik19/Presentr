@@ -12,7 +12,7 @@ import UIKit
 class PresentrController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
     
     /// Presentation type must be passed in to make all the sizing and position decisions.
-    let presentationType: PresentationType
+    var presentationType: PresentationType
 
 	/// What should happen when background is tapped.
 	let backgroundTap: BackgroundTapAction
@@ -225,7 +225,6 @@ class PresentrController: UIPresentationController, UIAdaptivePresentationContro
         NotificationCenter.default.removeObserver(self, name: keyboardWasShownKey, object: nil)
         NotificationCenter.default.removeObserver(self, name: keyboardWillHideKey, object: nil)
     }
-
 }
 
 // MARK: - UIPresentationController
@@ -499,5 +498,4 @@ extension PresentrController {
             keyboardIsShowing = false
         }
     }
-
 }
